@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "lib/sinatra/test.rb",
+     "sinatra-test.gemspec",
      "spec/sinatra-test_spec.rb",
      "spec/spec_helper.rb"
   ]
@@ -27,7 +28,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.4}
-  s.summary = %q{TODO}
+  s.summary = %q{Sinatra::Test is a repository of common Test/RSpec helpers}
   s.test_files = [
     "spec/sinatra-test_spec.rb",
      "spec/spec_helper.rb"

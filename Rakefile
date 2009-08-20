@@ -5,7 +5,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "sinatra-test"
-    gem.summary = %Q{TODO}
+    gem.summary = %Q{Sinatra::Test is a repository of common Test/RSpec helpers}
     gem.email = "kematzy@gmail.com"
     gem.homepage = "http://github.com/kematzy/sinatra-test"
     gem.authors = ["kematzy"]
@@ -33,12 +33,7 @@ task :default => :spec
 
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|
-  if File.exist?('VERSION.yml')
-    config = YAML.load(File.read('VERSION.yml'))
-    version = "#{config[:major]}.#{config[:minor]}.#{config[:patch]}"
-  else
-    version = ""
-  end
+  version = File.exist?('VERSION.yml') ? IO.read('VERSION').chomp : "[Unknown]"
 
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title = "sinatra-test #{version}"
