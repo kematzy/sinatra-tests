@@ -1,0 +1,7 @@
+= sinatra-test
+
+Description goes here.
+
+== Copyright
+
+Copyright (c) 2009 kematzy. See LICENSE for details.
