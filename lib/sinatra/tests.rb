@@ -4,7 +4,7 @@ require 'test/unit'
 
 module Sinatra
   
-  module Test
+  module Tests
     
     module Helpers
       
@@ -40,6 +40,6 @@ module Sinatra
       
     end #/module Unit::TestCase
     
-  end #/module Test
+  end #/module Tests
   
 end #/module Sinatra

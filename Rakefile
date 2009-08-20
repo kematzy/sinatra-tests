@@ -4,10 +4,10 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "sinatra-test"
-    gem.summary = %Q{Sinatra::Test is a repository of common Test/RSpec helpers}
+    gem.name = "sinatra-tests"
+    gem.summary = %Q{Sinatra::Tests is a repository of common Test/RSpec helpers}
     gem.email = "kematzy@gmail.com"
-    gem.homepage = "http://github.com/kematzy/sinatra-test"
+    gem.homepage = "http://github.com/kematzy/sinatra-tests"
     gem.authors = ["kematzy"]
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
@@ -33,8 +33,8 @@ task :default => :spec
 
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|
-  version = File.exist?('VERSION.yml') ? IO.read('VERSION').chomp : "[Unknown]"
-
+  version = File.exist?('VERSION') ? IO.read('VERSION').chomp : "[Unknown]"
+  
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title = "sinatra-test #{version}"
   rdoc.rdoc_files.include('README*')
