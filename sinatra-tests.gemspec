@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "lib/sinatra/tests.rb",
-     "sinatra-test.gemspec",
+     "sinatra-tests.gemspec",
      "spec/sinatra-test_spec.rb",
      "spec/spec_helper.rb"
   ]
