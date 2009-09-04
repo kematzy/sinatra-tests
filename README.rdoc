@@ -1,7 +1,45 @@
-= sinatra-test
+= Sinatra::Tests
 
-Description goes here.
+Commonly used bits when testing Sinatra apps/gems.
 
-== Copyright
 
-Copyright (c) 2009 kematzy. See LICENSE for details.
+== Installation
+
+  #  Add GitHub to your RubyGems sources 
+  $  gem sources -a http://gems.github.com
+
+  $  (sudo)? gem install kematzy-sinatra-tests
+
+=== Dependencies
+
+This Gem depends upon the following:
+
+* sinatra ( >= 0.10.1 )
+* rspec (>= 1.2.7 )
+* rack-test (>= 0.4.1)
+
+
+== Getting Started
+
+
+
+
+== RTFM 
+
+For a better understanding of this Gem, make sure you study the '<tt>sinatra-tests/spec/*_spec.rb</tt>' files.
+ 
+
+== Errors / Bugs
+
+If something is not behaving intuitively, it is a bug, and should be reported.
+Report it here: http://github.com/kematzy/sinatra-tests/issues 
+
+== Credits
+
+Copyright (c) 2009 Kematzy [ kematzy gmail com ]
+
+== Licence
+
+Released under the MIT license.
+
+

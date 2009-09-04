@@ -1,14 +1,18 @@
 
 require 'sinatra/base'
 require 'test/unit'
+require 'rack/test'
+require 'spec'
 
-module Sinatra
-  
-  module Tests
+module Sinatra 
+  module Tests 
+    VERSION = '0.1.2' unless const_defined?(:VERSION)
+    def self.version; "Sinatra::Tests v#{VERSION}"; end
     
-    module Helpers
+    
+    def self.registered(app)
       
-      get '/tests' do
+      app.get '/tests' do
         case params[:engine]
         when 'erb'
           erb(params[:view], :layout => params[:layout] )
@@ -19,27 +23,11 @@ module Sinatra
         end
       end
       
-    end #/module Helpers
+    end #/ self.registered
     
-    
-    module Unit::TestCase
-      
-      def setup
-        Sinatra::Base.set :environment, :test
-      end
-      
-      def erb_app(view, options = {})
-        options = {:layout => '<%= yield %>', :url  => '/tests' }.merge(options)
-        get options[:url], :view => view, :layout => options[:layout], :engine => :erb 
-      end
-      
-      def haml_app(view, options = {}) 
-        options = {:layout => '= yield ', :url  => '/tests' }.merge(options)
-         get options[:url], :view => view, :layout => options[:layout], :engine => :haml 
-      end
-      
-    end #/module Unit::TestCase
-    
-  end #/module Tests
-  
+  end #/module Test
 end #/module Sinatra
+
+%w(test_case shared_specs).each do |f|
+  require "sinatra/tests/#{f}"
+end
