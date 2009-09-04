@@ -22,6 +22,63 @@ This Gem depends upon the following:
 == Getting Started
 
 
+=== Step 1
+
+In your spec/spec_helper.rb file add the following:
+
+  require 'sinatra/tests'
+  
+By just requiring that gem, you essentially get all of this:
+
+  require 'sinatra/base'
+  require 'test/unit'
+  require 'rack/test'
+  require 'spec'
+  require 'spec/interop/test'
+  require 'rspec_hpricot_matchers'
+  
+and a few other goodies.
+
+=== Step 2
+
+Declare the following Spec block:  
+  
+  Spec::Runner.configure do |config|
+    config.include RspecHpricotMatchers
+    config.include Sinatra::Tests::SharedSpecs
+  end
+  
+
+=== Step 3
+
+In your TestApp block, register the Sinatra::Tests extension, by adding the following:
+
+  class MyTestApp < Sinatra::Base 
+    
+    register(Sinatra::Tests)
+    
+    <snip...>
+  end
+  
+
+=== Step 4
+
+And finally define the TestCase block like this:
+
+  class Test::Unit::TestCase 
+    include Sinatra::Tests::TestCase
+    
+    Sinatra::Base.set :environment, :test
+    
+  end
+  
+That's all. Now onto the niceties this provides you.
+
+
+== USAGE
+
+TODO:: write more documentation here
+
 
 
 == RTFM 
