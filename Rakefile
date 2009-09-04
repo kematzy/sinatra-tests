@@ -9,6 +9,11 @@ begin
     gem.email = "kematzy@gmail.com"
     gem.homepage = "http://github.com/kematzy/sinatra-tests"
     gem.authors = ["kematzy"]
+    gem.add_dependency('sinatra', '>= 0.10.1')
+    gem.add_dependency('rack-test', '>= 0.4.1')
+    gem.add_dependency('rspec', '>= 1.2.8')
+    gem.add_dependency('rspec_hpricot_matchers', '>= 1.0.0')
+    
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 
