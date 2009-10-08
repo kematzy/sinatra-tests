@@ -1,4 +1,5 @@
 
+require 'haml'
 require 'sinatra/base'
 require 'test/unit'
 require 'rack/test'
@@ -14,6 +15,8 @@ module Sinatra
     
     
     def self.registered(app)
+      
+      app.set :environment, :test
       
       app.get '/tests' do
         case params[:engine]
