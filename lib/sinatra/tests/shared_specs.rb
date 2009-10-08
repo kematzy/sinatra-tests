@@ -187,12 +187,12 @@ module Sinatra
       share_examples_for "HTTP headers" do 
         
         it "should return status: 200" do 
-          # assert last_response.ok?
           assert response.ok?
         end
         
         it "should return 'text/html'" do 
-          assert_equal('text/html', last_response.headers['Content-Type'])
+          response.headers['Content-Type'].should == 'text/html'
+          # assert_equal('text/html', last_response.headers['Content-Type'])
         end
         
       end #/headers
@@ -205,6 +205,7 @@ module Sinatra
           body.should have_tag('div#main-content')
         end
       end #/div
+      
       share_examples_for 'div#main-content > h2' do 
         it "should have a div#main-content h2 tag" do 
           body.should have_tag('div#main-content > h2', :count => 1)
@@ -227,6 +228,7 @@ module Sinatra
           end
         end
       end
+      
       
       
       
