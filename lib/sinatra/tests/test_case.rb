@@ -15,7 +15,7 @@ module Sinatra
     # 
     # 
     # 
-    module TestCase
+    module TestCase 
       
       include Rack::Test::Methods
       
@@ -45,13 +45,16 @@ module Sinatra
       end
       
       ##
-      # 
+      # Make it easier to work with the body of responses
       # 
       def body
         response.body.to_s
       end
       # alias_method :markup, :body
       
+      ##
+      # Make it easier to work with the returned status 
+      # 
       def status
         response.status
       end
@@ -72,11 +75,43 @@ module Sinatra
       end
       
       
+      ##
+      # Flexible method to test the ERB output.
+      # 
+      # Accepts custom :layout & :url options passed.
+      # 
+      # ==== Examples
+      # 
+      #   erb_app "<%= some_method('value') %>"
+      #   body.should == 'some result'
+      #   body.should have_tag(:some_tag)
+      # 
+      #   NB!  the custom URL must be declared in the MyTestApp in order to work
+      # 
+      #   erb_app "<%= 'custom-erb-url'.upcase %>", :url => "/custom-erb-url"
+      #   last_request.path_info.should == "/custom-erb-url"
+      # 
+      # @api public
       def erb_app(view, options = {})
         options = {:layout => '<%= yield %>', :url  => '/tests' }.merge(options)
         get options[:url], :view => view, :layout => options[:layout], :engine => :erb 
       end
       
+      ##
+      # Flexible method to test the HAML output
+      # 
+      # ==== Examples
+      # 
+      #   haml_app "= some_method('value')"
+      #   body.should == 'some result'
+      #   body.should have_tag(:some_tag)
+      # 
+      #   NB!  the custom URL must be declared in the MyTestApp in order to work
+      # 
+      #   haml_app "= 'custom-haml-url'.upcase", :url => "/custom-haml-url"
+      #   last_request.path_info.should == "/custom-haml-url"
+      # 
+      # @api public
       def haml_app(view, options = {}) 
         options = {:layout => '= yield ', :url  => '/tests' }.merge(options)
          get options[:url], :view => view, :layout => options[:layout], :engine => :haml 
