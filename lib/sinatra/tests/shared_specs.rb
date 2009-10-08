@@ -5,8 +5,13 @@ module Sinatra
     
     module RSpecMatchers
       
-      ## 
+      ##
+      # TODO: add some comments here
+      #  
+      # ==== Examples
       # 
+      # 
+      # @api public/private
       def be_even
         simple_matcher("an even number") { |given| given % 2 == 0 }
       end
@@ -24,6 +29,13 @@ module Sinatra
         end
       end
       
+      ##
+      # TODO: add some comments here
+      #  
+      # ==== Examples
+      # 
+      # 
+      # @api public/private
       def have_a_page_header(expected) 
         simple_matcher("have an h2 page header with [#{expected.inspect}]") do |given, matcher|
           # matcher.description = "have an h2 page header with [#{expected.inspect}]"
@@ -31,7 +43,13 @@ module Sinatra
         end
       end
       
-      
+      ##
+      # TODO: add some comments here
+      #  
+      # ==== Examples
+      # 
+      # 
+      # @api public/private
       def have_a_td_actions(model, buttons = %w(delete edit)) 
         simple_matcher do |given, matcher|
           tag = "div##{model.to_s.plural}-div > table##{model.to_s.plural}-table > tbody > tr > td.actions"
@@ -47,6 +65,13 @@ module Sinatra
         end
       end
       
+      ##
+      # TODO: add some comments here
+      #  
+      # ==== Examples
+      # 
+      # 
+      # @api public/private
       def have_an_edit_btn(tag, model) 
         simple_matcher do |given, matcher|
           given.should have_tag(tag + ' > a.edit-link.ui-btn','EDIT') do |a|
@@ -56,6 +81,13 @@ module Sinatra
         end
       end
       
+      ##
+      # TODO: add some comments here
+      #  
+      # ==== Examples
+      # 
+      # 
+      # @api public/private
       def have_a_delete_btn(tag, model) 
         simple_matcher do |given, matcher|
           given.should have_tag(tag + ' > a.delete-link.ui-btn','DELETE') do |a|
@@ -77,10 +109,24 @@ module Sinatra
       #   end
       # end
       
+      ##
+      # TODO: add some comments here
+      #  
+      # ==== Examples
+      # 
+      # 
+      # @api public/private
       def have_an_ui_form_header(model, options = {} )
         
       end
       
+      ##
+      # TODO: add some comments here
+      #  
+      # ==== Examples
+      # 
+      # 
+      # @api public/private
       def have_a_ui_form_message(state, msg = nil) 
         simple_matcher do |given, matcher|
           if msg.nil?
@@ -91,7 +137,13 @@ module Sinatra
         end
       end
       
-      
+      ##
+      # TODO: add some comments here
+      #  
+      # ==== Examples
+      # 
+      # 
+      # @api public/private
       def have_an_admin_header(options ={}) 
         simple_matcher do |given, matcher|
           matcher.description = "be an admin_header with [#{options.inspect}]"
@@ -107,24 +159,59 @@ module Sinatra
         end
       end
       
-      # def rhyme_with(expected)
-      #   simple_matcher do |given, matcher|
-      #     matcher.description = "rhyme with #{expected.inspect}"
-      #     matcher.failure_message = "expected #{given.inspect} to rhyme with #{expected.inspect}"
-      #     matcher.negative_failure_message = "expected #{given.inspect} not to rhyme with #{expected.inspect}"
-      #     given.rhymes_with? expected
-      #   end
-      # end
-      
-      
       
     end #/module RSpecMatchers
     
+    # == Shared Specs
+    # 
+    # === DEBUG
+    # 
+    # * <b><tt>it_should_behave_like "debug => app.methods"</tt></b>
+    #   
+    #   dumps a list of methods for the current <tt>app</tt>
+    #   
+    # * <b><tt>it_should_behave_like "debug"</tt></b>
+    #   
+    #   tests the body output for a <tt><debug></tt> tag.
+    # 
+    # 
+    # === RESPONSE
+    #   
+    # * <b><tt>it_should_behave_like "HTTP headers"</tt></b>
+    #   
+    #   checks that we got a 200 status (OK), and content-type is <tt>text/html</tt>
+    # 
+    # 
+    # === HTML OUTPUT
+    # 
+    # * <b><tt>it_should_behave_like "div#main-content"</tt></b>
+    #   
+    #   checks that the page has a <tt><div id="main-content"></div></tt>
+    # 
+    # * <b><tt>it_should_behave_like "div#main-content > h2"</tt></b>
+    #   
+    #   checks that the page has an <tt><h2></tt> tag within the <tt><div id="main-content"></div></tt> 
+    # 
+    # 
+    # ==== ADMIN SECTION
+    # 
+    # * <b><tt>it_should_behave_like "div.admin-section-header > div.actions > h4 with HELP"</tt></b>
+    #   
+    #   checks that the page has an...
+    # 
+    # 
+    # ==== FORMS
+    # 
+    # * <b><tt>it_should_behave_like "faux method > input.hidden[@value=put|delete]"</tt></b>
+    #   
+    #   checks that the page has an...
+    # 
     module SharedSpecs 
       
       include Sinatra::Tests::RSpecMatchers
       
-      
+      # :stopdoc:
+         
       share_examples_for 'MyTestApp' do 
         
         before(:each) do
@@ -170,6 +257,10 @@ module Sinatra
         end
       end
       
+      # :startdoc:
+      
+      # it_should_behave_like "debug => app.methods"
+      # 
       share_examples_for "debug => app.methods" do 
         it "app should have the right methods" do 
           app.methods.sort.should == 'debug => app.methods.sort'
@@ -213,11 +304,6 @@ module Sinatra
       end #/share_examples_for
       
       
-      
-      
-      
-      
-      
       ###### ADMIN SECTIONS #######
       
       
@@ -228,11 +314,6 @@ module Sinatra
           end
         end
       end
-      
-      
-      
-      
-      
       
       
       ###### FORMS ########

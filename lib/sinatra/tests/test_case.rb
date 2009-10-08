@@ -24,8 +24,10 @@ module Sinatra
       alias_method :h, :escape_html
       
       ##
-      # Make it easier to work with responses
+      # Short for <tt>last_response</tt>. 
+      # Making it easier to work with the returned response
       # 
+      # @api public
       alias_method :response, :last_response
       
       ##
@@ -45,22 +47,27 @@ module Sinatra
       end
       
       ##
-      # Make it easier to work with the body of responses
+      # Short for <tt>last_response.body</tt>. 
+      # Making it easier to work with the returned body of a response
       # 
+      # @api public
       def body
         response.body.to_s
       end
       # alias_method :markup, :body
       
       ##
-      # Make it easier to work with the returned status 
+      # Short for <tt>last_response.status</tt>. 
+      # Making it easier to work with the returned status of a response
       # 
+      # @api public
       def status
         response.status
       end
       
-      
+      ##
       # Delegate other missing methods to response.
+      # 
       def method_missing(name, *args, &block)
         if response && response.respond_to?(name)
           response.send(name, *args, &block)
@@ -69,7 +76,9 @@ module Sinatra
         end
       end
       
+      ##
       # Also check response since we delegate there.
+      # 
       def respond_to?(symbol, include_private=false)
         super || (response && response.respond_to?(symbol, include_private))
       end
@@ -86,7 +95,7 @@ module Sinatra
       #   body.should == 'some result'
       #   body.should have_tag(:some_tag)
       # 
-      #   NB!  the custom URL must be declared in the MyTestApp in order to work
+      #   # NB!  the custom URL must be declared in the MyTestApp in order to work
       # 
       #   erb_app "<%= 'custom-erb-url'.upcase %>", :url => "/custom-erb-url"
       #   last_request.path_info.should == "/custom-erb-url"
@@ -106,7 +115,7 @@ module Sinatra
       #   body.should == 'some result'
       #   body.should have_tag(:some_tag)
       # 
-      #   NB!  the custom URL must be declared in the MyTestApp in order to work
+      #   # NB!  the custom URL must be declared in the MyTestApp in order to work
       # 
       #   haml_app "= 'custom-haml-url'.upcase", :url => "/custom-haml-url"
       #   last_request.path_info.should == "/custom-haml-url"
