@@ -16,11 +16,14 @@ def fixtures_path
   "#{File.dirname(File.expand_path(__FILE__))}/fixtures"
 end
 
-
 class MyTestApp < Sinatra::Base
   register(Sinatra::Tests)
-  
 end
+  
+class MyAdminTestApp < MyTestApp
+  # register(Sinatra::Tests)
+end
+
 
 class Test::Unit::TestCase
   include Sinatra::Tests::TestCase

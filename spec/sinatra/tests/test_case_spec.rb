@@ -5,6 +5,7 @@ require "#{File.dirname(File.dirname(File.expand_path(__FILE__)))}/../spec_helpe
 describe "Sinatra" do 
   
   it_should_behave_like "MyTestApp"
+  # it_should_behave_like "MyAdminTestApp"
   
   # it_should_behave_like "debug => app.methods"
   
@@ -115,5 +116,7 @@ describe "Sinatra" do
       
       
     end #/ TestCase
+    
+    
   end #/ Tests
 end #/ Sinatra
