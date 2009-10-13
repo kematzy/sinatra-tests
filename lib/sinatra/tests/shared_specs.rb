@@ -329,6 +329,118 @@ module Sinatra
       end
       
       
+      ###### CSS ########
+      
+      share_examples_for 'get_all_css_requests("/css")' do 
+        
+        it_should_behave_like "CSS [screen, print]"
+        
+        it_should_behave_like "CSS [ie]"
+        
+      end
+      
+      share_examples_for 'get_all_css_requests("/css") (NO IE)' do 
+        
+        it_should_behave_like "CSS [screen, print]"
+        
+      end
+      
+      share_examples_for 'CSS [screen, print]' do 
+        
+        describe "CSS - GET /css/screen.css" do 
+          
+          before(:each) do 
+            get("/css/screen.css")
+          end
+          
+          it "should return status: 200" do 
+            assert response.ok?
+          end
+          
+          it "should return 'text/html'" do 
+            response.headers['Content-Type'].should == 'text/css;charset=utf-8'
+          end
+          
+          describe "the CSS" do 
+            
+            # it_should_behave_like "debug"
+            
+            it "should NOT have a Sass::SyntaxError" do 
+              body.should_not match(/Sass::SyntaxError/)
+            end
+            
+            #  TODO:: Need to write further tests here
+            # it "should have further tests"
+            
+          end #/ the CSS
+          
+        end #/CSS - GET /css/screen.css
+        
+        describe "CSS - GET /css/print.css" do 
+          
+          before(:each) do 
+            get("/css/print.css")
+          end
+          
+          it "should return status: 200" do  
+            assert response.ok?
+          end
+          
+          it "should return 'text/html'" do  
+            response.headers['Content-Type'].should == 'text/css;charset=utf-8'
+          end
+          
+          describe "the CSS" do 
+            
+            # it_should_behave_like "debug"
+            
+            it "should NOT have a Sass::SyntaxError" do 
+              body.should_not match(/Sass::SyntaxError/)
+            end
+            
+            #  TODO:: Need to write further tests here
+            # it "should have further tests"
+            
+          end #/ the CSS
+          
+        end #/CSS - GET /css/print.css
+        
+      end
+      
+      share_examples_for 'CSS [ie]' do 
+        
+        describe "CSS - GET /css/ie.css" do 
+          
+          before(:each) do 
+            get("/css/ie.css")
+          end
+          
+          it "should return status: 200" do 
+            assert response.ok?
+          end
+          
+          it "should return 'text/html'" do 
+            response.headers['Content-Type'].should == 'text/css;charset=utf-8'
+          end
+          
+          describe "the CSS" do 
+            
+            # it_should_behave_like "debug"
+            
+            it "should NOT have a Sass::SyntaxError" do 
+              body.should_not match(/Sass::SyntaxError/)
+            end
+            
+            #  TODO:: Need to write further tests here
+            # it "should have further tests"
+            
+          end #/ the CSS
+          
+        end #/CSS - GET /css/print.css
+        
+      end
+      
+      
     end #/module SharedSpecs
     
   end #/module Tests
