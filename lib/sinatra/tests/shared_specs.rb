@@ -358,7 +358,8 @@ module Sinatra
           end
           
           it "should return 'text/html'" do 
-            response.headers['Content-Type'].should == 'text/css;charset=utf-8'
+            # response.headers['Content-Type'].should == 'text/css;charset=utf-8'
+            response.headers['Content-Type'].should == 'text/css'
           end
           
           describe "the CSS" do 
@@ -387,7 +388,8 @@ module Sinatra
           end
           
           it "should return 'text/html'" do  
-            response.headers['Content-Type'].should == 'text/css;charset=utf-8'
+            # response.headers['Content-Type'].should == 'text/css;charset=utf-8'
+            response.headers['Content-Type'].should == 'text/css'
           end
           
           describe "the CSS" do 
@@ -420,7 +422,8 @@ module Sinatra
           end
           
           it "should return 'text/html'" do 
-            response.headers['Content-Type'].should == 'text/css;charset=utf-8'
+            # response.headers['Content-Type'].should == 'text/css;charset=utf-8' # tilt version
+            response.headers['Content-Type'].should == 'text/css'
           end
           
           describe "the CSS" do 
