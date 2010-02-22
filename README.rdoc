@@ -1,23 +1,23 @@
 = Sinatra::Tests
 
-Commonly used bits when testing Sinatra apps/gems.
+A Sinatra extension and repository of common RSpec helpers when testing your Sinatra apps/gems.
 
 
 == Installation
 
-  #  Add GitHub to your RubyGems sources 
-  $  gem sources -a http://gems.github.com
+  #  Add Gemcutter to your RubyGems sources 
+  $  gem sources -a http://gemcutter.com
 
-  $  (sudo)? gem install kematzy-sinatra-tests
+  $  (sudo)? gem install sinatra-tests
 
 === Dependencies
 
 This Gem depends upon the following:
 
 * sinatra ( >= 0.10.1 )
-* rspec (>= 1.2.7 )
-* rack-test (>= 0.4.1)
-
+* rspec (>= 1.3.0 )
+* rack-test (>= 0.5.3)
+* rspec_hpricot_matchers (>= 0.1.0)
 
 == Getting Started
 
@@ -45,6 +45,7 @@ Declare the following Spec block:
   
   Spec::Runner.configure do |config|
     config.include RspecHpricotMatchers
+    config.include Sinatra::Tests::TestCase
     config.include Sinatra::Tests::SharedSpecs
   end
   
@@ -66,10 +67,7 @@ In your TestApp block, register the Sinatra::Tests extension, by adding the foll
 And finally define the TestCase block like this:
 
   class Test::Unit::TestCase 
-    include Sinatra::Tests::TestCase
-    
     Sinatra::Base.set :environment, :test
-    
   end
   
 That's all. Now onto the niceties this provides you.
@@ -77,7 +75,142 @@ That's all. Now onto the niceties this provides you.
 
 == USAGE
 
-TODO:: write more documentation here
+
+=== RSpec Matchers
+
+==== :be_even 
+
+A simple matcher that tests for an even number
+
+  1.should_not be_even
+  2.should be_even
+
+
+==== :have_a_page_title(:title_text)
+
+A simple matcher that tests for a <head> with a <title> tag with the given text.
+
+  body.should have_a_page_title("Home | Site Title")
+
+  body.should have_a_page_title(/Home/)
+
+
+==== :have_a_page_header(:text, :tag)
+
+A simple matcher that tests for <h(1..6)> header tag with the given text.
+
+<b>NB!</b> Throws an Exception when there's more than one page header on the page.
+
+  
+  body.should have_a_page_header('Page Header')
+
+  body.should have_a_page_header(/Contact Information/, 'h1')
+  
+  body.should have_a_page_header(/Contact Information/, 'body > h1')
+
+
+==== :have_a_ui_btn(:tag, :action, :model_name_singluar, :link_text)
+
+A simple matcher that tests for a <tt><a href></tt> tag with class 'ui-btn :action-link'
+and a number of other specific values, derived from the other arguments passed.
+
+
+  body.should have_a_ui_btn('div', :edit, :article, 'Edit')
+  
+    => expects <a href="/articles/:id/edit" class="ui-btn edit-link" title="edit article">Edit</a>
+    
+  body.should have_a_ui_btn('div', :delete, :article) =>
+  
+    => expects <a href="/articles/:id" class="ui-btn delete-link" title="delete article">DELETE</a>
+    
+
+==== :have_an_edit_btn(:tag, :model_name_singluar)
+
+A simple matcher that tests for a <tt><a href></tt> tag with class 'ui-btn edit-link'
+
+
+  body.should have_an_edit_btn('td.actions', :post)
+  
+  body.should have_an_edit_btn('td.actions', :post, 'Custom Btn Text')
+
+
+==== :have_a_delete_btn(:tag, :model_name_singluar)
+
+A simple matcher that tests for a <tt><a href></tt> tag with class 'ui-btn delete-link'
+
+
+  body.should have_a_delete_btn('td.actions', :post)
+  
+  body.should have_a_delete_btn('td.actions', :post, 'Custom Btn Text')
+
+
+==== :have_a_show_btn(:tag, :model_name_singluar)
+
+A simple matcher that tests for a <tt><a href></tt> tag with class 'ui-btn show-link'
+
+
+  body.should have_a_show_btn('td.actions', :post)
+  
+  body.should have_a_show_btn('td.actions', :post, 'Custom Btn Text')
+
+
+
+=== RSpec SharedSpecs
+
+These are just some of the shared specs that I have been using, but they are being changed at the moment,
+so no guarantees of them surviving or remaining in their current form / functionality.
+
+
+==== DEBUG
+
+
+Dump a list of methods for the current <tt>app</tt>
+
+  it_should_behave_like "debug => app.methods"
+
+
+Tests the body output for a <tt><debug></tt> tag, ie: prints out the entire body content
+
+  it_should_behave_like "debug"
+
+
+==== RESPONSE
+  
+Checks that we got a 200 status (OK), and content-type is <tt>text/html</tt>
+
+  it_should_behave_like "HTTP headers"
+  
+  it_should_behave_like "HTML"
+  
+Checks that we got a 200 status (OK), and content-type is <tt>text/css</tt>
+  
+  it_should_behave_like "CSS"
+
+
+==== HTML OUTPUT
+
+Checks that the page has a <tt><div id="main-content"></div></tt>
+
+  it_should_behave_like "div#main-content"
+  
+
+Checks that the page has an <tt><h2></tt> tag within the <tt><div id="main-content"></div></tt> 
+
+  it_should_behave_like "div#main-content > h2"
+  
+
+More to be addded later...
+
+
+==== FORMS
+
+Checks that the page has a form with a <tt><input type="hidden"...></tt> tag.
+
+  it_should_behave_like "forms > faux method > input.hidden"
+  
+
+More to be addded later...
+
 
 
 
@@ -90,6 +223,26 @@ For a better understanding of this Gem, make sure you study the '<tt>sinatra-tes
 
 If something is not behaving intuitively, it is a bug, and should be reported.
 Report it here: http://github.com/kematzy/sinatra-tests/issues 
+
+== TODOs
+
+* Add more tests to various matchers.
+
+* Create a test suite for the Shared Specs.
+
+* Add Test::Unit (assert*) matchers and shared tests. (Please fork and add if you want this!)
+
+
+
+== Note on Patches/Pull Requests
+ 
+* Fork the project.
+* Make your feature addition or bug fix.
+* Add tests for it. This is important so I don't break it in a
+  future version unintentionally.
+* Commit, do not mess with rakefile, version, or history.
+  * (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
+* Send me a pull request. Bonus points for topic branches.
 
 == Credits
 
