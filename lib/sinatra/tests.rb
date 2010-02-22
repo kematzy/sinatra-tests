@@ -7,6 +7,8 @@ require 'spec'
 require 'spec/interop/test'
 require 'rspec_hpricot_matchers'
 
+# NB! I'm loading a private framework here, 
+require 'alt/rext/string' unless String.respond_to?(:plural)
 
 module Sinatra 
   module Tests 
