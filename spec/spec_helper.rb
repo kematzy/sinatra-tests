@@ -26,8 +26,6 @@ end
 
 
 class Test::Unit::TestCase
-  # include Sinatra::Tests::TestCase
-  
   Sinatra::Base.set :environment, :test
-  
 end
+
