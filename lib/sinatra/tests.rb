@@ -34,6 +34,6 @@ module Sinatra
   end #/module Test
 end #/module Sinatra
 
-%w(test_case shared_specs).each do |f|
+%w(test_case rspec/matchers rspec/shared_specs).each do |f|
   require "sinatra/tests/#{f}"
 end

@@ -5,20 +5,8 @@ require "#{File.dirname(File.dirname(File.expand_path(__FILE__)))}/../spec_helpe
 describe "Sinatra" do 
   
   it_should_behave_like "MyTestApp"
-  # it_should_behave_like "MyAdminTestApp"
-  
-  # it_should_behave_like "debug => app.methods"
   
   describe "Tests" do 
-    
-    describe "#self.version" do 
-      
-      it "should return a string with the version number" do 
-        Sinatra::Tests.version.should match(/Sinatra::Tests v\d\.\d\.\d/)
-      end
-      
-    end #/ #version
-    
     
     describe "TestCase" do 
       
@@ -100,7 +88,6 @@ describe "Sinatra" do
         end
         
         it "should work with a custom URL" do 
-          pending "these tests does not really work. Find out why"
           class MyTestApp
             get '/custom-haml-url' do
               haml "%customurl= @params[:view]"
@@ -114,9 +101,7 @@ describe "Sinatra" do
         
       end #/ #haml_app
       
-      
     end #/ TestCase
-    
     
   end #/ Tests
 end #/ Sinatra
