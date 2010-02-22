@@ -12,7 +12,7 @@ require 'alt/rext/string' unless String.respond_to?(:plural)
 
 module Sinatra 
   module Tests 
-    VERSION = '0.1.5' unless const_defined?(:VERSION)
+    VERSION = '0.1.6' unless const_defined?(:VERSION)
     def self.version; "Sinatra::Tests v#{VERSION}"; end
     
     
