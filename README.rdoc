@@ -46,7 +46,7 @@ Declare the following Spec block:
   Spec::Runner.configure do |config|
     config.include RspecHpricotMatchers
     config.include Sinatra::Tests::TestCase
-    config.include Sinatra::Tests::SharedSpecs
+    config.include Sinatra::Tests::RSpec::SharedSpecs
   end
   
 
